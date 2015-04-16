@@ -110,7 +110,7 @@ This plugin assumes you are going to organize your knockout view table like belo
 
 ```
 
-See it in action at [jsfiddle](https://jsfiddle.net/7dywuz8h/6/)
+[See it in action here](http://kodragable.orionhub.org:8000/index.html)
 
 
 
