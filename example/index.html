@@ -1,0 +1,137 @@
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>dragable table demo</title>
+
+  <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/akottr/dragtable/master/dragtable.css">
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.js"></script>
+
+  <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js"></script>
+
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script type="text/javascript" src="https://raw.githubusercontent.com/akottr/dragtable/master/jquery.dragtable.js"></script>
+
+  <script type="text/javascript" src="https://raw.githubusercontent.com/rgeerts/KODataTable/master/KODataTable.js"></script>
+
+  <script type="text/javascript" src="https://raw.githubusercontent.com/rgeerts/KODataTable-dragable/master/js/kodatatable-dragable.js"></script>
+
+
+
+  <script type="text/javascript">//<![CDATA[
+  $(window).load(function(){
+    var viewModel = {};
+
+    var options = {
+      tableSelector: '#dragable-table',
+      columns: [{
+        id: 'id',
+        text: 'ID'
+      }, {
+        id: 'name',
+        text: 'Name'
+      }, {
+        id: 'description',
+        text: 'Pretty Description'
+      }],
+      rows: [{
+        id: 1,
+        name: 'beer yum',
+        description: 'only the finest hops and natural flavors'
+      }, {
+        id: 2,
+        name: 'beer ok',
+        description: 'mixture of ok hops and yellow dye #3'
+      }, {
+        id: 3,
+        name: 'beer bad',
+        description: 'made of toenail trimmings and yeast procured from body armpits'
+      }],
+      // other kodatatable options
+      dragtable: {
+        dragaccept: '.accept'
+        //other dragtable options
+      }
+    };
+    viewModel.koTable = new KODataTable(options);
+
+    viewModel.addableRow = {
+      id: ko.observable(''),
+      name: ko.observable(''),
+      description: ko.observable('')
+    };
+
+    viewModel.addRow = function () {
+      var newOne = viewModel.addableRow;
+      viewModel.koTable.rows.push({
+        id: newOne.id(),
+        name: newOne.name(),
+        description: newOne.description()
+      });
+    };
+    ko.applyBindings(viewModel, document.getElementById("kodt"));
+    viewModel.koTable.dragtable();
+  });//]]>
+
+  </script>
+
+
+</head>
+<body>
+<div id="kodt">
+  <p>Rearrange columns by dragging them and then add a new row...
+    see it rearranged</p>
+  <table id="dragable-table">
+    <thead>
+    <tr data-bind="foreach: {data: koTable.columns, as: 'column'}">
+      <th data-bind="text: column.text, attr:{id: column.id}" style="cursor: pointer" id="id">ID</th>
+
+      <th data-bind="text: column.text, attr:{id: column.id}" style="cursor: pointer" id="name">Name</th>
+
+      <th data-bind="text: column.text, attr:{id: column.id}" style="cursor: pointer" id="description">Pretty Description</th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: {data: koTable.currentRows, as: 'row'}">
+    <tr data-bind="foreach: {data: $root.koTable.columns, as: 'column'}">
+      <td data-bind="text: row[column.id]">1</td>
+
+      <td data-bind="text: row[column.id]">beer yum</td>
+
+      <td data-bind="text: row[column.id]">only the finest hops and natural flavors</td>
+    </tr>
+
+    <tr data-bind="foreach: {data: $root.koTable.columns, as: 'column'}">
+      <td data-bind="text: row[column.id]">2</td>
+
+      <td data-bind="text: row[column.id]">beer ok</td>
+
+      <td data-bind="text: row[column.id]">mixture of ok hops and yellow dye #3</td>
+    </tr>
+
+    <tr data-bind="foreach: {data: $root.koTable.columns, as: 'column'}">
+      <td data-bind="text: row[column.id]">3</td>
+
+      <td data-bind="text: row[column.id]">beer bad</td>
+
+      <td data-bind="text: row[column.id]">made of toenail trimmings and yeast procured from body armpits</td>
+    </tr>
+    </tbody>
+  </table>
+  <label for="id">ID:</label>
+  <input id="id" data-bind="value:addableRow.id">
+  <br>
+  <label for="name">Name:</label>
+  <input id="name" data-bind="value:addableRow.name">
+  <br>
+  <label for="desc">Description:</label>
+  <input id="desc" data-bind="value:addableRow.description">
+  <br>
+  <button data-bind="click: addRow">Add Row</button>
+</div>
+
+
+
+
+
+
+</body></html>
