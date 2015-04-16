@@ -2,7 +2,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>dragable table demo</title>
 
-  <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/akottr/dragtable/master/dragtable.css">
+  <link rel="stylesheet" type="text/css" href="/dragtable.css">
 
   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.js"></script>
 
@@ -10,11 +10,11 @@
 
   <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-  <script type="text/javascript" src="https://raw.githubusercontent.com/akottr/dragtable/master/jquery.dragtable.js"></script>
+  <script type="text/javascript" src="/jquery.dragtable.js"></script>
 
-  <script type="text/javascript" src="https://raw.githubusercontent.com/rgeerts/KODataTable/master/KODataTable.js"></script>
+  <script type="text/javascript" src="/KODataTable.js"></script>
 
-  <script type="text/javascript" src="https://raw.githubusercontent.com/rgeerts/KODataTable-dragable/master/js/kodatatable-dragable.js"></script>
+  <script type="text/javascript" src="/kodatatable-dragable.js"></script>
 
 
 
@@ -78,60 +78,31 @@
 
 </head>
 <body>
-<div id="kodt">
-  <p>Rearrange columns by dragging them and then add a new row...
+<div id='kodt'>
+    <p>Rearrange columns by dragging them and then add a new row...
     see it rearranged</p>
-  <table id="dragable-table">
-    <thead>
-    <tr data-bind="foreach: {data: koTable.columns, as: 'column'}">
-      <th data-bind="text: column.text, attr:{id: column.id}" style="cursor: pointer" id="id">ID</th>
-
-      <th data-bind="text: column.text, attr:{id: column.id}" style="cursor: pointer" id="name">Name</th>
-
-      <th data-bind="text: column.text, attr:{id: column.id}" style="cursor: pointer" id="description">Pretty Description</th>
-    </tr>
-    </thead>
-    <tbody data-bind="foreach: {data: koTable.currentRows, as: 'row'}">
-    <tr data-bind="foreach: {data: $root.koTable.columns, as: 'column'}">
-      <td data-bind="text: row[column.id]">1</td>
-
-      <td data-bind="text: row[column.id]">beer yum</td>
-
-      <td data-bind="text: row[column.id]">only the finest hops and natural flavors</td>
-    </tr>
-
-    <tr data-bind="foreach: {data: $root.koTable.columns, as: 'column'}">
-      <td data-bind="text: row[column.id]">2</td>
-
-      <td data-bind="text: row[column.id]">beer ok</td>
-
-      <td data-bind="text: row[column.id]">mixture of ok hops and yellow dye #3</td>
-    </tr>
-
-    <tr data-bind="foreach: {data: $root.koTable.columns, as: 'column'}">
-      <td data-bind="text: row[column.id]">3</td>
-
-      <td data-bind="text: row[column.id]">beer bad</td>
-
-      <td data-bind="text: row[column.id]">made of toenail trimmings and yeast procured from body armpits</td>
-    </tr>
-    </tbody>
-  </table>
-  <label for="id">ID:</label>
-  <input id="id" data-bind="value:addableRow.id">
-  <br>
-  <label for="name">Name:</label>
-  <input id="name" data-bind="value:addableRow.name">
-  <br>
-  <label for="desc">Description:</label>
-  <input id="desc" data-bind="value:addableRow.description">
-  <br>
-  <button data-bind="click: addRow">Add Row</button>
+    <table id="dragable-table">
+        <thead>
+            <tr data-bind="foreach: {data: koTable.columns, as: 'column'}">
+                <th data-bind="text: column.text, attr:{id: column.id}" style="cursor: pointer"></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: {data: koTable.currentRows, as: 'row'}">
+            <tr data-bind="foreach: {data: $root.koTable.columns, as: 'column'}">
+                <td data-bind="text: row[column.id]"></td>
+            </tr>
+        </tbody>
+    </table>
+    <label for="id">ID:</label>
+    <input id="id" data-bind="value:addableRow.id" />
+    <br>
+    <label for="name">Name:</label>
+    <input id="name" data-bind="value:addableRow.name">
+    <br>
+    <label for="desc">Description:</label>
+    <input id="desc" data-bind="value:addableRow.description">
+    <br>
+    <button data-bind="click: addRow">Add Row</button>
 </div>
-
-
-
-
-
 
 </body></html>
