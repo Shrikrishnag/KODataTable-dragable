@@ -16,15 +16,15 @@
         var koTable = this;
         var defaultDragOptions = {
             persistState: function(table) {
-                if (!window.sessionStorage) return;
-                var ss = window.sessionStorage;
+                if (!window.localStorage) return;
+                var ss = window.localStorage;
                 $.each(koTable.columns(),function(i) {
                     if(this.id != '') {table.sortOrder[this.id]=i;}
                 });
                 ss.setItem(tableSelector + '-tableorder',JSON.stringify(table.sortOrder));
             },
             restoreState: function(){
-                var sortOrder = JSON.parse(window.sessionStorage.getItem(tableSelector +'-tableorder'));
+                var sortOrder = JSON.parse(window.localStorage.getItem(tableSelector +'-tableorder'));
                 if(!sortOrder){
                     return;
                 }
@@ -37,6 +37,7 @@
             }
         };
         var dragtable = $(tableSelector).dragtable($.extend(defaultDragOptions, doptions)).dragtable("instance");
+        koTable.dragtableInstance = dragtable;
         dragtable._bubbleCols = function() {
             var table = dragtable.originalTable;
             var columnsReordered = [];
@@ -89,5 +90,32 @@
             $(window).resize();
         }
     };
+
+
+    Kodt.prototype.keyDownMoveColumn = function(column, event) {
+        var self = this;
+        var ARROW_LEFT = 37, ARROW_RIGHT = 39;
+        var oldIndex = self.visibleColumns().indexOf(column) + 1;
+        var newIndex =  oldIndex;
+        if ( event.keyCode === ARROW_LEFT && oldIndex > 1) {
+            newIndex = oldIndex - 1;
+        } else if ( event.keyCode === ARROW_LEFT && oldIndex === 1){
+            newIndex = self.visibleColumns().length;
+        } else if(event.keyCode === ARROW_RIGHT && oldIndex < self.visibleColumns().length ){
+            newIndex = oldIndex + 1;
+        } else if(event.keyCode === ARROW_RIGHT && oldIndex === self.visibleColumns().length ){
+            newIndex = 1;
+        }
+        if(oldIndex !== newIndex){
+            self.dragtableInstance.originalTable.startIndex = oldIndex;
+            self.dragtableInstance.originalTable.endIndex = newIndex;
+            self.dragtableInstance._bubbleCols();
+            $(event.currentTarget).focus();
+            return false;
+        }
+
+        return true;
+    };
+
     return Kodt;
 }));
