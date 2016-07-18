@@ -41,9 +41,15 @@
             var table = dragtable.originalTable;
             var columnsReordered = [];
             var origColumns = [];
-            $.each(koTable.columns(), function (_, i) {
-                origColumns.push(i)
-            });
+
+            //my version of ko datatables has visibleColumns
+            var tmpCols = [];
+            if(koTable.visibleColumns){
+                origColumns = koTable.visibleColumns();
+            } else {
+                origColumns = koTable.columns().splice(0);
+            }
+
             if (table.startIndex === table.endIndex) {
                 return true;
             } else if (table.startIndex > table.endIndex) {
@@ -71,9 +77,16 @@
             koTable.columns.sort(function (left, right) {
                 var newleft = columnsReordered.indexOf(left);
                 var newright = columnsReordered.indexOf(right);
+                if(newleft < 0){
+                    newleft = 99999;
+                }
+                if(newright < 0){
+                    newright = 99999;
+                }
                 return newleft === newright ? 0 : (newleft < newright ? -1 : 1)
 
             });
+            $(window).resize();
         }
     };
     return Kodt;
