@@ -59,24 +59,24 @@
                 return true;
             } else if (startIndex > endIndex) {
                 $.each(origColumns.splice(0, endIndex - 1), function (_, i) {
-                    columnsReordered.push(i)
+                    columnsReordered.push(i);
                 });
                 columnsReordered.push(origColumns[startIndex - endIndex]);
                 $.each(origColumns.splice(0, startIndex - endIndex), function (_, i) {
-                    columnsReordered.push(i)
+                    columnsReordered.push(i);
                 });
                 $.each(origColumns.splice(1), function (_, i) {
-                    columnsReordered.push(i)
+                    columnsReordered.push(i);
                 });
             } else {
                 $.each(origColumns.splice(0, startIndex - 1), function (_, i) {
-                    columnsReordered.push(i)
+                    columnsReordered.push(i);
                 });
                 $.each(origColumns.splice(1, endIndex - startIndex), function (_, i) {
-                    columnsReordered.push(i)
+                    columnsReordered.push(i);
                 });
                 $.each(origColumns.splice(0), function (_, i) {
-                    columnsReordered.push(i)
+                    columnsReordered.push(i);
                 });
             }
             koTable.columns.sort(function (left, right) {
@@ -117,7 +117,7 @@
     Kodt.prototype.nextVisibleNonHiddenColumn = function(column){
         var self = this;
         var origIndex = self.columns.indexOf(column);
-        for(var i = origIndex+1; i !== origIndex && i < 10000; i++){
+        for(var i = origIndex+1; i !== origIndex; i++){
             if(i === self.columns().length){
                 i = 0;
             }
@@ -135,7 +135,7 @@
     Kodt.prototype.nextNonHiddenColumn = function(column){
         var self = this;
         var origIndex = self.columns.indexOf(column);
-        for(var i = origIndex+1; i !== origIndex && i < 10000; i++){
+        for(var i = origIndex+1; i !== origIndex; i++){
             if(i === self.columns().length){
                 i = 0;
             }
@@ -153,7 +153,7 @@
     Kodt.prototype.previousVisibleNonHiddenColumn = function(column){
         var self = this;
         var origIndex = self.columns.indexOf(column);
-        for(var i = origIndex-1; i !== origIndex && i > -10000; i--){
+        for(var i = origIndex-1; i !== origIndex; i--){
             if(i === -1){
                 i = self.columns().length - 1;
             }
@@ -171,7 +171,7 @@
     Kodt.prototype.previousNonHiddenColumn = function(column){
         var self = this;
         var origIndex = self.columns.indexOf(column);
-        for(var i = origIndex-1; i !== origIndex && i > -10000; i--){
+        for(var i = origIndex-1; i !== origIndex; i--){
             if(i === -1){
                 i = self.columns().length - 1;
             }
